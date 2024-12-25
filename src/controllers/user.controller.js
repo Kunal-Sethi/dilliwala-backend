@@ -3,6 +3,7 @@ import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { generateAccessAndRefreshTokens } from "../utils/AccessAndRefreshToken.js";
+import bcrypt from "bcrypt";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { fullName, email, password, contact } = req.body;
@@ -106,4 +107,71 @@ const logoutUser = asyncHandler(async (req, res) => {
     .clearCookie("refreshToken", options)
     .json(new ApiResponse(200, {}, "User logout success."));
 });
-export { registerUser, loginUser, logoutUser };
+
+const updateUserDetails = asyncHandler(async (req, res) => {
+  const { fullName, contact, address } = req.body;
+  if (!fullName) {
+    throw new ApiError(404, "Full name is required.");
+  }
+  const user = await User.findByIdAndUpdate(
+    req.user?._id,
+    {
+      $set: {
+        fullName,
+        contact,
+        address,
+      },
+    },
+    {
+      new: true,
+    }
+  ).select("-password -refreshToken");
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "Account details updated."));
+});
+
+const updatePassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+  if (newPassword !== confirmPassword) {
+    throw new ApiError(401, "Password and Confirm password should match.");
+  }
+
+  const user = await User.findById(req.user._id);
+
+  const isPasswordValid = await user.isPasswordCorrect(oldPassword);
+
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Password is not correct.");
+  }
+
+  //   const updatedUser = await User.findByIdAndUpdate(req.user._id, {
+  //     password: await bcrypt.hash(newPassword, 10),
+  //   }).select("-password -refreshToken");
+
+  //   Did this because a utility function to hash the password is already written in User model.
+  user.password = newPassword;
+  await user.save();
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "Password is updated successfully."));
+});
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  updateUserDetails,
+  updatePassword,
+};
