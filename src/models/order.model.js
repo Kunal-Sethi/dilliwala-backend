@@ -27,21 +27,28 @@ const orderSchema = new Schema(
     },
     pickupAddress: {
       type: String,
-      required: true,
+      required: false,
     },
     orderStatus: {
       type: String,
-      enum: ["Pending", "Ready for pickup", "Picked up", "Cancelled"],
+      enum: [
+        "Pending",
+        "In process",
+        "Fulfilled",
+        "Ready for pickup",
+        "Completed",
+        "Cancelled",
+      ],
       require: true,
       default: "Pending",
     },
     paymentMethod: {
       type: String,
-      required: true,
+      required: false,
     },
     paymentStatus: {
       type: String,
-      enum: ["pending", "paid", "failed"],
+      enum: ["Pending", "Paid", "Failed"],
       default: "pending",
     },
   },
