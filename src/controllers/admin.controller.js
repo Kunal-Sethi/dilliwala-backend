@@ -1,4 +1,5 @@
 import { Category } from "../models/category.model.js";
+import { Order } from "../models/order.model.js";
 import { Product } from "../models/product.model.js";
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
@@ -175,6 +176,60 @@ const deleteCategory = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, null, "Category deleted successfully."));
 });
 
+/**
+ * Order functions for ADMINS
+ */
+
+const viewAllOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find();
+  if (!orders) {
+    throw new ApiError(404, "No orders are placed");
+  }
+  return res
+    .status(200)
+    .json(new ApiResponse(200, orders, "All orders are fetched successfully."));
+});
+
+const viewOrderDetails = asyncHandler(async (req, res) => {
+  const orderId = req.params.id;
+  const orderDetails = await Order.findById(orderId);
+  if (!orderDetails) {
+    throw new ApiError(404, "Order does not exist.");
+  }
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, orderDetails, "Order details fetched successfully.")
+    );
+});
+
+const updateOrderStatus = asyncHandler(async (req, res) => {
+  const orderId = req.params.id;
+  const { orderStatus } = req.body;
+  if (!orderId) {
+    throw new ApiError(404, "Order does not exist.");
+  }
+  const order = await Order.findByIdAndUpdate(
+    orderId,
+    {
+      $set: {
+        orderStatus,
+      },
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!order) {
+    throw new ApiError(500, "Something went wrong, try again.");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, order, "Order status updated."));
+});
+
 export {
   addProduct,
   editProduct,
@@ -182,4 +237,7 @@ export {
   addCategory,
   editCategory,
   deleteCategory,
+  viewAllOrders,
+  viewOrderDetails,
+  updateOrderStatus,
 };

@@ -8,6 +8,9 @@ import {
   deleteProduct,
   editCategory,
   editProduct,
+  updateOrderStatus,
+  viewAllOrders,
+  viewOrderDetails,
 } from "../controllers/admin.controller.js";
 
 const router = Router();
@@ -21,4 +24,9 @@ router.route("/delete-product/:id").delete(verifyAdmin, deleteProduct);
 router.route("/add-category").post(verifyAdmin, addCategory);
 router.route("/edit-category/:id").put(verifyAdmin, editCategory);
 router.route("/delete-category/:id").delete(verifyAdmin, deleteCategory);
+
+// Admin Order routes
+router.route("/view-orders").get(verifyAdmin, viewAllOrders);
+router.route("/view-order-details/:id").post(verifyAdmin, viewOrderDetails);
+router.route("/update-order-status/:id").put(verifyAdmin, updateOrderStatus);
 export default router;
