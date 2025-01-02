@@ -17,6 +17,12 @@ const cartSchema = new Schema(
           required: true,
           default: 1,
         },
+        status: {
+          type: String,
+          enum: ["In Stock", "Out of Stock"],
+          required: true,
+          default: "In Stock",
+        },
       },
     ],
     totalPrice: {
