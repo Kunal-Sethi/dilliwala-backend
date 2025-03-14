@@ -165,9 +165,9 @@ const editCategory = asyncHandler(async (req, res) => {
 const deleteCategory = asyncHandler(async (req, res) => {
   const categoryId = req.params.id;
 
-  const deletedCategory = await Category.findByIdAndDelete(categoryId);
+  const deletedCategory = await Category.deleteOne({ _id: categoryId });
 
-  if (!deleteCategory) {
+  if (!deletedCategory.deletedCount) {
     throw new ApiError(404, "Category not found.");
   }
 
@@ -224,6 +224,8 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
   if (!order) {
     throw new ApiError(500, "Something went wrong, try again.");
   }
+
+  // TODO : Send email notification for order status update.
 
   return res
     .status(200)

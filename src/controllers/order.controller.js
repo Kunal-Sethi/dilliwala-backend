@@ -42,12 +42,16 @@ const placeOrder = asyncHandler(async (req, res) => {
     })
   );
 
-  //   Todo: Add address later
+  if (!user.address || user.address.trim() === "") {
+    throw new ApiError(404, "Address is not updated by the user.");
+  }
+
   const order = await Order.create({
     userId,
     products: totalProducts,
     orderTotal: totalPrice,
     orderStatus: "Pending",
+    pickupAddress: user.address,
     paymentStatus: "Paid",
   });
   return res
