@@ -35,6 +35,7 @@ import cartRouter from "./routes/cart.routes.js";
 import wishlistRouter from "./routes/wishlist.routes.js";
 import OrderRouter from "./routes/order.routes.js";
 import ReviewRouter from "./routes/review.routes.js";
+import CategoryRouter from "./routes/category.routes.js";
 
 // Routes declaration
 app.use("/api/v1/users", userRouter);
@@ -44,5 +45,6 @@ app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/wishlist", wishlistRouter);
 app.use("/api/v1/orders", OrderRouter);
 app.use("/api/v1/reviews", ReviewRouter);
+app.use("/api/v1/categories", CategoryRouter);
 
 export { app };

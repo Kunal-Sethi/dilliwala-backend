@@ -94,73 +94,73 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 //     .json(new ApiResponse(200, updatedProduct, "Product updated."));
 // });
 
-const deleteProduct = asyncHandler(async (req, res) => {
-  const productId = req.params.id;
+// const deleteProduct = asyncHandler(async (req, res) => {
+//   const productId = req.params.id;
 
-  const deletedProduct = await Product.findByIdAndDelete(productId);
+//   const deletedProduct = await Product.findByIdAndDelete(productId);
 
-  if (!deletedProduct) {
-    throw new ApiError(404, "Product not found.");
-  }
+//   if (!deletedProduct) {
+//     throw new ApiError(404, "Product not found.");
+//   }
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, null, "Product deleted successfully."));
-});
+//   return res
+//     .status(200)
+//     .json(new ApiResponse(200, null, "Product deleted successfully."));
+// });
 
 /**
  * Category functions for ADMINS
  */
 
-const addCategory = asyncHandler(async (req, res) => {
-  const { name } = req.body;
+// const addCategory = asyncHandler(async (req, res) => {
+//   const { name } = req.body;
 
-  if (!name) {
-    throw new ApiError(404, "Name of the category is required.");
-  }
+//   if (!name) {
+//     throw new ApiError(404, "Name of the category is required.");
+//   }
 
-  const category = await Category.create({
-    name,
-  });
+//   const category = await Category.create({
+//     name,
+//   });
 
-  if (!category) {
-    throw new ApiError(500, "Something went wrong.");
-  }
+//   if (!category) {
+//     throw new ApiError(500, "Something went wrong.");
+//   }
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, category, "Category added successfully."));
-});
+//   return res
+//     .status(200)
+//     .json(new ApiResponse(200, category, "Category added successfully."));
+// });
 
-const editCategory = asyncHandler(async (req, res) => {
-  const categoryId = req.params.id;
-  const updatedCategoryData = req.body;
+// const editCategory = asyncHandler(async (req, res) => {
+//   const categoryId = req.params.id;
+//   const updatedCategoryData = req.body;
 
-  const updatedCategory = await Category.findByIdAndUpdate(
-    categoryId,
-    {
-      $set: updatedCategoryData,
-    },
-    {
-      new: true,
-    }
-  );
+//   const updatedCategory = await Category.findByIdAndUpdate(
+//     categoryId,
+//     {
+//       $set: updatedCategoryData,
+//     },
+//     {
+//       new: true,
+//     }
+//   );
 
-  const options = {
-    httpOnly: true,
-    secure: true,
-  };
+//   const options = {
+//     httpOnly: true,
+//     secure: true,
+//   };
 
-  if (!updatedCategory) {
-    throw new ApiError(404, "Category not found.");
-  }
+//   if (!updatedCategory) {
+//     throw new ApiError(404, "Category not found.");
+//   }
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, updatedCategory, "Category updated successfully.")
-    );
-});
+//   return res
+//     .status(200)
+//     .json(
+//       new ApiResponse(200, updatedCategory, "Category updated successfully.")
+//     );
+// });
 
 const deleteCategory = asyncHandler(async (req, res) => {
   const categoryId = req.params.id;
@@ -235,9 +235,9 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 export {
   // addProduct,
   // editProduct,
-  deleteProduct,
-  addCategory,
-  editCategory,
+  // deleteProduct,
+  // addCategory,
+  // editCategory,
   deleteCategory,
   viewAllOrders,
   viewOrderDetails,
