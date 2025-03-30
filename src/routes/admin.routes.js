@@ -3,15 +3,17 @@ import { Router } from "express";
 import { verifyAdmin } from "../middlewares/admin.middleware.js";
 import {
   addCategory,
-  addProduct,
   deleteCategory,
-  deleteProduct,
   editCategory,
-  editProduct,
   updateOrderStatus,
   viewAllOrders,
   viewOrderDetails,
 } from "../controllers/admin.controller.js";
+import {
+  addProduct,
+  editProduct,
+  deleteProduct,
+} from "../controllers/admin/product.controller.js";
 
 const router = Router();
 

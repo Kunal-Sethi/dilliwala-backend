@@ -9,90 +9,90 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 /**
  * Product functions for ADMINS
  */
-const addProduct = asyncHandler(async (req, res) => {
-  const {
-    name,
-    description,
-    stock,
-    // images,
-    price,
-    discountedPrice,
-    category,
-    netWeight,
-    brand,
-    expiryDate,
-  } = req.body;
+// const addProduct = asyncHandler(async (req, res) => {
+//   const {
+//     name,
+//     description,
+//     stock,
+//     // images,
+//     price,
+//     discountedPrice,
+//     category,
+//     netWeight,
+//     brand,
+//     expiryDate,
+//   } = req.body;
 
-  if (
-    !name ||
-    !description ||
-    !stock ||
-    // images ||
-    !price ||
-    !discountedPrice ||
-    !category ||
-    !netWeight ||
-    !brand ||
-    !expiryDate
-  ) {
-    throw new ApiError(400, "All fields are required.");
-  }
+//   if (
+//     !name ||
+//     !description ||
+//     !stock ||
+//     // images ||
+//     !price ||
+//     !discountedPrice ||
+//     !category ||
+//     !netWeight ||
+//     !brand ||
+//     !expiryDate
+//   ) {
+//     throw new ApiError(400, "All fields are required.");
+//   }
 
-  const product = await Product.create({
-    name,
-    description,
-    stock,
-    // images,
-    price,
-    discountedPrice,
-    category,
-    netWeight,
-    brand,
-    expiryDate,
-  });
+//   const product = await Product.create({
+//     name,
+//     description,
+//     stock,
+//     // images,
+//     price,
+//     discountedPrice,
+//     category,
+//     netWeight,
+//     brand,
+//     expiryDate,
+//   });
 
-  if (!product) {
-    throw new ApiError(501, "Something went wrong, Please try again.");
-  }
+//   if (!product) {
+//     throw new ApiError(501, "Something went wrong, Please try again.");
+//   }
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, product, "Product created successfully."));
-});
+//   return res
+//     .status(200)
+//     .json(new ApiResponse(200, product, "Product created successfully."));
+// });
 
-const editProduct = asyncHandler(async (req, res) => {
-  const productId = req.params.id;
-  const updatedProductData = req.body;
+// const editProduct = asyncHandler(async (req, res) => {
+//   const productId = req.params.id;
+//   const updatedProductData = req.body;
 
-  const product = await Product.findById(productId);
+//   const product = await Product.findById(productId);
 
-  if (!product) {
-    throw new ApiError(404, "Product not found.");
-  }
+//   if (!product) {
+//     throw new ApiError(404, "Product not found.");
+//   }
 
-  const updatedProduct = await Product.findByIdAndUpdate(
-    productId,
-    {
-      $set: updatedProductData,
-    },
-    {
-      new: true,
-    }
-  );
+//   const updatedProduct = await Product.findByIdAndUpdate(
+//     productId,
+//     {
+//       $set: updatedProductData,
+//     },
+//     {
+//       new: true,
+//     }
+//   );
 
-  if (!updatedProduct) {
-    throw new ApiError(500, "Something went wrong.");
-  }
+//   if (!updatedProduct) {
+//     throw new ApiError(500, "Something went wrong.");
+//   }
 
-  const options = {
-    httpOnly: true,
-    secure: true,
-  };
+//   const options = {
+//     httpOnly: true,
+//     secure: true,
+//   };
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, updatedProduct, "Product updated."));
-});
+//   return res
+//     .status(200)
+//     .json(new ApiResponse(200, updatedProduct, "Product updated."));
+// });
 
 const deleteProduct = asyncHandler(async (req, res) => {
   const productId = req.params.id;
@@ -233,8 +233,8 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 });
 
 export {
-  addProduct,
-  editProduct,
+  // addProduct,
+  // editProduct,
   deleteProduct,
   addCategory,
   editCategory,
