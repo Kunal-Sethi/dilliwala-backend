@@ -14,6 +14,7 @@ const addCategoryService = async (categoryData) => {
   }
 };
 
+// This service is not for admin only, but all users can access this.
 const getAllCategoriesService = async () => {
   try {
     const categories = await Category.find();
@@ -28,4 +29,43 @@ const getAllCategoriesService = async () => {
   }
 };
 
-export { addCategoryService, getAllCategoriesService };
+const editCategoryService = async (categoryId, updatedCategoryData) => {
+  try {
+    const updatedCategory = await Category.findByIdAndUpdate(
+      categoryId,
+      {
+        $set: updatedCategoryData,
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updatedCategory) {
+      throw new ApiError(404, "Category not found.");
+    }
+    return updatedCategory;
+  } catch (error) {
+    console.log("Error found in categroyService file : ", error.message);
+    throw new ApiError(501, "Something went wrong.");
+  }
+};
+
+const deleteCategoryService = async (categoryId) => {
+  try {
+    const deletedCategory = await Category.findByIdAndDelete(categoryId);
+    if (!deletedCategory) {
+      throw new ApiError(404, "Category not found.");
+    }
+    return deletedCategory;
+  } catch (error) {
+    console.log("Error found in categroyService file : ", error.message);
+    throw new ApiError(501, "Something went wrong while deleting category.");
+  }
+};
+
+export {
+  addCategoryService,
+  getAllCategoriesService,
+  editCategoryService,
+  deleteCategoryService,
+};

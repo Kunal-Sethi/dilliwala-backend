@@ -132,35 +132,35 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 //     .json(new ApiResponse(200, category, "Category added successfully."));
 // });
 
-const editCategory = asyncHandler(async (req, res) => {
-  const categoryId = req.params.id;
-  const updatedCategoryData = req.body;
+// const editCategory = asyncHandler(async (req, res) => {
+//   const categoryId = req.params.id;
+//   const updatedCategoryData = req.body;
 
-  const updatedCategory = await Category.findByIdAndUpdate(
-    categoryId,
-    {
-      $set: updatedCategoryData,
-    },
-    {
-      new: true,
-    }
-  );
+//   const updatedCategory = await Category.findByIdAndUpdate(
+//     categoryId,
+//     {
+//       $set: updatedCategoryData,
+//     },
+//     {
+//       new: true,
+//     }
+//   );
 
-  const options = {
-    httpOnly: true,
-    secure: true,
-  };
+//   const options = {
+//     httpOnly: true,
+//     secure: true,
+//   };
 
-  if (!updatedCategory) {
-    throw new ApiError(404, "Category not found.");
-  }
+//   if (!updatedCategory) {
+//     throw new ApiError(404, "Category not found.");
+//   }
 
-  return res
-    .status(200)
-    .json(
-      new ApiResponse(200, updatedCategory, "Category updated successfully.")
-    );
-});
+//   return res
+//     .status(200)
+//     .json(
+//       new ApiResponse(200, updatedCategory, "Category updated successfully.")
+//     );
+// });
 
 const deleteCategory = asyncHandler(async (req, res) => {
   const categoryId = req.params.id;
@@ -237,7 +237,7 @@ export {
   // editProduct,
   // deleteProduct,
   // addCategory,
-  editCategory,
+  // editCategory,
   deleteCategory,
   viewAllOrders,
   viewOrderDetails,
