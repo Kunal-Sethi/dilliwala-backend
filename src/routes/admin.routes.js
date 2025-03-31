@@ -2,11 +2,6 @@ import { Router } from "express";
 // import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { verifyAdmin } from "../middlewares/admin.middleware.js";
 import {
-  updateOrderStatus,
-  viewAllOrders,
-  viewOrderDetails,
-} from "../controllers/admin.controller.js";
-import {
   addProduct,
   editProduct,
   deleteProduct,
@@ -16,6 +11,11 @@ import {
   editCategory,
   deleteCategory,
 } from "../controllers/admin/category.controller.js";
+import {
+  viewAllOrders,
+  viewOrderDetails,
+  updateOrderStatus,
+} from "../controllers/admin/order.controller.js";
 
 const router = Router();
 
