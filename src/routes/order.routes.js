@@ -1,4 +1,4 @@
-import { viewOrderDetails } from "../controllers/admin.controller.js";
+import { viewOrderDetails } from "../controllers/admin/order.controller.js";
 import { getPastOrders, placeOrder } from "../controllers/order.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { Router } from "express";
