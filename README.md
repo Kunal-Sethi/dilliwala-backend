@@ -22,5 +22,3 @@ This is the backend API server for the **Dilliwala Grocery E-commerce** app. Bui
 - **Multer (File Uploads)**
 - **dotenv**
 - **Express-Async-Handler**
-
-## 📁 Folder Structure
